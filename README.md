@@ -212,9 +212,6 @@ The good news? **The rest of the week belongs to us** both long and short positi
 
 
 
-![image.png](attachment:dd0ca1b2-820c-4c0a-b9db-163e6f6b5014.png)
-
-
 **Performance Categorization Explanation**
 
 - **Profit Factor (PF)** – Ratio of total profits to total losses (**PF > 1** means the strategy is profitable overall).  
