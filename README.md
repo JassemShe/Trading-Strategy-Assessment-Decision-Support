@@ -129,14 +129,12 @@ The strategy demonstrated consistent profitability over the test period (**2012-
 
 ### 📈 4. Equity Curve Analysis
 
-![image.png](attachment:a473cec0-1893-40a3-8c71-57ce2cee2c7b.png)
 
 ### 🔹 Cumulative Performance
 The equity curve shows remarkably consistent growth, rising from **0** to **12,000 units** over **263 trades**.  
 
 However, between trades **#200 to #211**, instead of the usual pattern of small gains, there is a sharp jump in **Cumulative P&L USD** from **7,383** to **10,332**. Upon review, nothing unusual stands out in trade mechanics — the only common factor is that these trades occurred during **Phase 5** of the backtest.
 
-![image.png](attachment:7dda486a-b898-464d-8dc1-8353dea75bf9.png)
 
 ### 🔹 Consistency Metrics
 The strategy was consistent, with a rolling average P&L % of 0.2–0.3% and a rolling std dev of 0.1–0.3%. then, big swings occurred, with std dev peaking near 1.0% and average P&L % hitting ~0.5% before dropping, showing inconsistency. After trade 150, the metrics stabilized, trending down to near 0.2% or lower by trade 250. A Sharpe ratio of 0.44 suggests modest returns that don’t fully offset the volatility.
@@ -185,14 +183,12 @@ Overall, the metrics suggest that **short trades are the stronghold** of the str
 
 
 
-![image.png](attachment:162fc8d6-1ae8-4b1b-94ee-55e4e8b28d0d.png)
 
 
 ### 🔹 Monthly Performance Variability  
 Monthly win rates display some fluctuations with occasional dips and spikes.
 Short trades show more consistent performance across months. Their monthly win rates tend to fluctuate less and demonstrate a reliable edge that persists even when Long trades experience more variability.
 
-![image.png](attachment:45f38478-8247-4926-9619-9348e0106197.png)
 
 ### 🔹 Weekday Performance Summary
 Long trades on **Monday** and **Tuesday** are hurting more than benefiting showing low win rates, weak risk-to-reward ratios, and poor profit factors.  
