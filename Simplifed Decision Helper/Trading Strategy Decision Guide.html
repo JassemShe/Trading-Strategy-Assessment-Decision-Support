@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Strategy Decision Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All CSS remains the same as your original */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-dark: #0f172a;
+            --section-bg: #1e293b;
+            --card-bg: #334155;
+            --text-light: #f1f5f9;
+            --text-gray: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), #0d1420);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 16px;
+            line-height: 1.6;
+            touch-action: manipulation;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-top: 16px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--text-gray);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .info-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin: 8px 0;
+        }
+
+        .guidance-card {
+            background: var(--section-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .guidance-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guidance-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .guidance-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .performance-stats {
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        .section {
+            background: var(--section-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-blue);
+        }
+
+        .section-title i {
+            background: rgba(59, 130, 246, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .pill {
+            padding: 14px 20px;
+            border-radius: 50px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 1px solid #475569;
+            flex-grow: 1;
+            text-align: center;
+            min-width: 120px;
+            font-size: 1rem;
+            user-select: none;
+        }
+
+        .pill:hover, .pill:active {
+            background: #475569;
+        }
+
+        .pill.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .strategy-details {
+            background: var(--section-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .strategy-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .strategy-title {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .day-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .performance-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .performance-card.warning {
+            border-left-color: var(--accent-red);
+        }
+
+        .performance-card.success {
+            border-left-color: var(--accent-green);
+        }
+
+        .performance-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .session-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .session-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #475569;
+        }
+
+        .session-card h4 {
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .session-card ul {
+            padding-left: 20px;
+        }
+
+        .session-card li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .session-card li span {
+            font-weight: 600;
+            color: var(--accent-orange);
+        }
+
+        .general-notes {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            border-top: 2px solid var(--accent-purple);
+        }
+
+        .general-notes h3 {
+            color: var(--accent-orange);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .general-notes ul {
+            padding-left: 20px;
+        }
+
+        .general-notes li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+        
+        .decision-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        
+        .continue-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .btn {
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            min-width: 120px;
+            flex: 1;
+            text-align: center;
+            user-select: none;
+        }
+        
+        .btn-avoid {
+            background: var(--accent-red);
+            color: white;
+        }
+        
+        .btn-continue {
+            background: var(--accent-green);
+            color: white;
+        }
+        
+        .btn:hover, .btn:active {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .exit-message {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-red);
+        }
+        
+        .exit-message i {
+            font-size: 3rem;
+            color: var(--accent-red);
+            margin-bottom: 20px;
+        }
+        
+        .no-selection {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-gray);
+        }
+        
+        .no-selection i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+            opacity: 0.7;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .stat-card {
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin: 4px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .strategy-notes {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            border-left: 4px solid var(--accent-green);
+        }
+        
+        .strategy-notes ul {
+            padding-left: 20px;
+        }
+        
+        .strategy-notes li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .pills-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .pill {
+                width: 100%;
+                min-width: auto;
+                padding: 16px 20px;
+            }
+            
+            .session-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .strategy-title {
+                font-size: 1.2rem;
+            }
+            
+            .continue-options {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 16px 24px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-project-diagram"></i> Trading Strategy Decision Guide</h1>
+            <p class="subtitle">Use this as a systematic guide based on backtested data, but always incorporate real-time market conditions and personal risk tolerance.</p>
+            <div class="info-tag">Days in Jordan Time • Sessions in ET</div>
+        </header>
+        
+        <main>
+            <!-- Trade Direction Section -->
+            <section class="section">
+                <h2 class="section-title"><i class="fas fa-1"></i> Step 1 - Select Trade Direction</h2>
+                <div class="pills-container">
+                    <div class="pill" data-direction="long" onclick="selectDirection('long')">
+                        <i class="fas fa-arrow-up"></i> Long Position
+                    </div>
+                    <div class="pill" data-direction="short" onclick="selectDirection('short')">
+                        <i class="fas fa-arrow-down"></i> Short Position
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Global Guidance Section -->
+            <div class="guidance-card">
+                <h2><i class="fas fa-compass"></i> Global Guidance</h2>
+                <p class="guidance-text" id="global-guidance">Select direction and day to see tailored trading guidance.</p>
+                <div class="performance-stats" id="performance-stats"></div>
+            </div>
+            
+            <!-- Day Selection Section -->
+            <section class="section" id="day-section" style="display: none;">
+                <h2 class="section-title"><i class="fas fa-2"></i> Step 2 - Select Day (Jordan Time)</h2>
+                <div class="pills-container">
+                    <div class="pill" data-day="monday" onclick="selectDay('monday')">Monday</div>
+                    <div class="pill" data-day="tuesday" onclick="selectDay('tuesday')">Tuesday</div>
+                    <div class="pill" data-day="wednesday" onclick="selectDay('wednesday')">Wednesday</div>
+                    <div class="pill" data-day="thursday" onclick="selectDay('thursday')">Thursday</div>
+                    <div class="pill" data-day="friday" onclick="selectDay('friday')">Friday</div>
+                </div>
+            </section>
+            
+            <!-- Continue/Avoid Section for Long Mon/Tue -->
+            <section class="section" id="continue-section" style="display: none;">
+                <h2 class="section-title"><i class="fas fa-exclamation-circle"></i> Important Decision</h2>
+                <div class="decision-section">
+                    <p id="continue-text"></p>
+                    <div class="continue-options">
+                        <button class="btn btn-avoid" onclick="selectOption('avoid')">Avoid</button>
+                        <button class="btn btn-continue" onclick="selectOption('continue')">Continue</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Exit Message -->
+            <div class="exit-message" id="exit-section" style="display: none;">
+                <i class="fas fa-door-open"></i>
+                <h3>Exit Trade</h3>
+                <p>Based on historical performance, it's recommended to avoid this trade setup.</p>
+            </div>
+            
+            <!-- Session Selection -->
+            <section class="section" id="session-section" style="display: none;">
+                <h2 class="section-title"><i class="fas fa-3"></i> Step 3 - Select Entry Session (ET)</h2>
+                <div class="pills-container" id="session-options">
+                    <!-- Sessions will be added dynamically -->
+                </div>
+            </section>
+            
+            <!-- Duration Selection -->
+            <section class="section" id="duration-section" style="display: none;">
+                <h2 class="section-title"><i class="fas fa-clock"></i> Step 4 - Select Hold Duration</h2>
+                <div class="pills-container" id="duration-options">
+                    <!-- Durations will be added dynamically -->
+                </div>
+            </section>
+            
+            <!-- Strategy Details Section -->
+            <div class="strategy-details" id="strategy-section" style="display: none;">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            
+            <!-- Initial state when nothing is selected -->
+            <div class="no-selection" id="initial-state">
+                <i class="fas fa-hand-pointer"></i>
+                <h3>Select a trade direction to begin</h3>
+                <p>Choose Long or Short position to see tailored strategy guidance</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize with no selections
+        let tradeDirection = null;
+        let selectedDay = null;
+        let sessionType = null;
+        
+        // Session data
+        const sessions = [
+            'Overnight (20:00 - 04:00 ET)',
+            'Pre-Market (04:00 - 09:30 ET)',
+            'First Hour (09:30 - 10:30 ET)',
+            'Midday-Afternoon (10:30 - 15:00 ET)',
+            'Last Hour (15:00 - 16:00 ET)',
+            'After-Hours (16:00 - 20:00 ET)'
+        ];
+        
+        // Long duration options
+        const longDurations = [
+            '0 – 10.46 hrs',
+            '10.46 – 20.00 hrs',
+            'more than 20.00 hrs'
+        ];
+        
+        // Short duration options
+        const shortDurations = [
+            '0 – 7.91 hrs',
+            '7.91 – 17.31 hrs',
+            'more than 17.31 hrs'
+        ];
+        
+        // Update the global guidance based on selections
+        function updateGlobalGuidance() {
+            const guidanceEl = document.getElementById('global-guidance');
+            const statsEl = document.getElementById('performance-stats');
+            
+            if (!tradeDirection) {
+                guidanceEl.innerHTML = "Select direction and day to see tailored trading guidance.";
+                statsEl.innerHTML = "";
+                return;
+            }
+            
+            if (!selectedDay) {
+                if (tradeDirection === 'long') {
+                    guidanceEl.innerHTML = "Long Position Selected";
+                    statsEl.innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">70.86%</div>
+                                <div class="stat-label">Win Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">+0.15%</div>
+                                <div class="stat-label">Avg Return</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">High</div>
+                                <div class="stat-label">Risk</div>
+                            </div>
+                        </div>
+                        <p><strong>Overall:</strong> Moderate performance. Avoid trading on Monday and Tuesday and holding positions beyond 20 hours.</p>
+                    `;
+                } else {
+                    guidanceEl.innerHTML = "Short Position Selected";
+                    statsEl.innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">87.5%</div>
+                                <div class="stat-label">Win Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">+0.30%</div>
+                                <div class="stat-label">Avg Return</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">Low</div>
+                                <div class="stat-label">Risk</div>
+                            </div>
+                        </div>
+                        <p><strong>Overall:</strong> Strong performance. Prioritize across most days, with caution on Tuesdays.</p>
+                    `;
+                }
+                return;
+            }
+            
+            if (tradeDirection === 'long') {
+                switch(selectedDay) {
+                    case 'monday':
+                        guidanceEl.innerHTML = "Long Position on Monday";
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">59-61%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">&lt;1.0</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">0.8-1.6</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Weak performance:</strong> Low win rates ~59-61%, RRR &lt;1, profit factor ~0.8-1.6. Avoid Long trades or proceed with caution.</p>
+                        `;
+                        break;
+                    case 'tuesday':
+                        guidanceEl.innerHTML = "Long Position on Tuesday";
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">59-61%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">&lt;1.0</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">0.8-1.6</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Weak performance:</strong> Low win rates ~59-61%, RRR &lt;1, profit factor ~0.8-1.6. Avoid Long trades.</p>
+                        `;
+                        break;
+                    case 'wednesday':
+                    case 'thursday':
+                    case 'friday':
+                        guidanceEl.innerHTML = `Long Position on ${selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1)}`;
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">73-86%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥1.1</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥3.6</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Excellent performance:</strong> Win rates 73-86%, RRR ≥1.1, profit factor ≥3.6. Best setups in Overnight & Pre-Market.</p>
+                        `;
+                        break;
+                }
+            } else {
+                switch(selectedDay) {
+                    case 'monday':
+                        guidanceEl.innerHTML = "Short Position on Monday";
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">82-92%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥1.3</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥6.2</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Excellent performance:</strong> Good opportunity for Shorts, especially in Pre-Market.</p>
+                        `;
+                        break;
+                    case 'tuesday':
+                        guidanceEl.innerHTML = "Short Position on Tuesday";
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">92%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">0.19</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">Low</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Moderate performance:</strong> High win rate 92%, but very low RRR 0.19—losses can be outsized.</p>
+                        `;
+                        break;
+                    case 'wednesday':
+                    case 'thursday':
+                    case 'friday':
+                        guidanceEl.innerHTML = `Short Position on ${selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1)}`;
+                        statsEl.innerHTML = `
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">82-92%</div>
+                                    <div class="stat-label">Win Rate</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥1.3</div>
+                                    <div class="stat-label">RRR</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">≥6.2</div>
+                                    <div class="stat-label">Profit Factor</div>
+                                </div>
+                            </div>
+                            <p><strong>Excellent performance:</strong> Win rates 82-92%, RRR ≥1.3, profit factor ≥6.2. Balanced performance; watch volatility in Overnight.</p>
+                        `;
+                        break;
+                }
+            }
+        }
+        
+        // Direction selection handler
+        function selectDirection(direction) {
+            tradeDirection = direction;
+            
+            // Update UI
+            document.querySelectorAll('[data-direction]').forEach(el => {
+                el.classList.toggle('active', el.dataset.direction === direction);
+            });
+            
+            // Show day selection section
+            document.getElementById('day-section').style.display = 'block';
+            document.getElementById('initial-state').style.display = 'none';
+            
+            // Reset other sections
+            document.getElementById('continue-section').style.display = 'none';
+            document.getElementById('exit-section').style.display = 'none';
+            document.getElementById('session-section').style.display = 'none';
+            document.getElementById('duration-section').style.display = 'none';
+            document.getElementById('strategy-section').style.display = 'none';
+            
+            // Reset day selection
+            selectedDay = null;
+            document.querySelectorAll('[data-day]').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            updateGlobalGuidance();
+        }
+        
+        // Day selection handler
+        function selectDay(day) {
+            selectedDay = day;
+            
+            // Update UI
+            document.querySelectorAll('[data-day]').forEach(el => {
+                el.classList.toggle('active', el.dataset.day === day);
+            });
+            
+            // For Short on Tuesday, show strategy directly
+            if (tradeDirection === 'short' && day === 'tuesday') {
+                showShortTuesdayStrategy();
+                // Also update guidance for Short Tuesday
+                updateGlobalGuidance();
+                return;
+            }
+            
+            // Check if we need to show continue/avoid section
+            if (tradeDirection === 'long' && (day === 'monday' || day === 'tuesday')) {
+                document.getElementById('continue-section').style.display = 'block';
+                document.getElementById('session-section').style.display = 'none';
+                document.getElementById('strategy-section').style.display = 'none';
+                document.getElementById('exit-section').style.display = 'none';
+                
+                // Set continue text
+                const continueText = document.getElementById('continue-text');
+                if (day === 'monday') {
+                    continueText.innerHTML = "Preferably avoid but on Mondays you may continue with caution!";
+                } else {
+                    continueText.innerHTML = "Preferably avoid Tuesday Long trades due to poor performance";
+                }
+            } else {
+                // Show session selection
+                document.getElementById('continue-section').style.display = 'none';
+                document.getElementById('exit-section').style.display = 'none';
+                showSessionOptions();
+            }
+            
+            updateGlobalGuidance();
+        }
+        
+        // Show session options
+        function showSessionOptions() {
+            const sessionOptions = document.getElementById('session-options');
+            sessionOptions.innerHTML = '';
+            
+            sessions.forEach(session => {
+                const pill = document.createElement('div');
+                pill.className = 'pill';
+                pill.textContent = session;
+                pill.onclick = () => selectSession(session);
+                sessionOptions.appendChild(pill);
+            });
+            
+            document.getElementById('session-section').style.display = 'block';
+            document.getElementById('duration-section').style.display = 'none';
+            document.getElementById('strategy-section').style.display = 'none';
+        }
+        
+        // Select session
+        function selectSession(session) {
+            sessionType = session;
+            
+            // Highlight selected session
+            document.querySelectorAll('#session-options .pill').forEach(el => {
+                el.classList.toggle('active', el.textContent === session);
+            });
+            
+            // Show duration options
+            const durationOptions = document.getElementById('duration-options');
+            durationOptions.innerHTML = '';
+            
+            const durations = tradeDirection === 'long' ? longDurations : shortDurations;
+            
+            durations.forEach(duration => {
+                const pill = document.createElement('div');
+                pill.className = 'pill';
+                pill.textContent = duration;
+                pill.onclick = () => selectDuration(duration);
+                durationOptions.appendChild(pill);
+            });
+            
+            document.getElementById('duration-section').style.display = 'block';
+            document.getElementById('strategy-section').style.display = 'none';
+        }
+        
+        // Select duration
+        function selectDuration(duration) {
+            // Highlight selected duration
+            document.querySelectorAll('#duration-options .pill').forEach(el => {
+                el.classList.toggle('active', el.textContent === duration);
+            });
+            
+            // Show strategy details
+            showStrategyDetails(duration);
+        }
+        
+        // Continue/Avoid selection
+        function selectOption(option) {
+            if (option === 'avoid') {
+                document.getElementById('exit-section').style.display = 'block';
+                document.getElementById('strategy-section').style.display = 'none';
+                document.getElementById('session-section').style.display = 'none';
+            } else {
+                // Show continue strategy
+                document.getElementById('continue-section').style.display = 'none';
+                showContinueStrategy();
+            }
+        }
+        
+        // Show strategy for continue option (Long Mon/Tue)
+        function showContinueStrategy() {
+            const strategySection = document.getElementById('strategy-section');
+            
+            // Capitalize the day name
+            const dayName = selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1);
+            
+            strategySection.innerHTML = `
+                <div class="strategy-header">
+                    <h3 class="strategy-title">Long Position Strategy for ${dayName}</h3>
+                    <div class="day-tag">Continue with Caution</div>
+                </div>
+                
+                <div class="performance-card warning">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Recommendations</h3>
+                    <ul>
+                        <li>Tighten take-profit and stop-loss levels to limit exposure</li>
+                        <li>Prefer entry and exit in the same session: 'Overnight (20:00 - 04:00 ET)' or 'Pre-Market (04:00 - 09:30 ET)'</li>
+                        <li>If the trade is held >9 hours, consider exiting immediately or reducing position size</li>
+                        <li>Avoid holding beyond 12 hours to prevent entering the danger zone</li>
+                    </ul>
+                </div>
+            `;
+            
+            strategySection.style.display = 'block';
+        }
+        
+        // Show strategy for Short on Tuesday
+        function showShortTuesdayStrategy() {
+            const strategySection = document.getElementById('strategy-section');
+            
+            strategySection.innerHTML = `
+                <div class="strategy-header">
+                    <h3 class="strategy-title">Short Position Strategy for Tuesday</h3>
+                    <div class="day-tag">High Risk Opportunity</div>
+                </div>
+                
+                <div class="performance-card warning">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Recommendations</h3>
+                    <ul>
+                        <li>Wins are frequent, but losses are significant. Proceed with caution</li>
+                        <li>Tighten stop-losses aggressively</li>
+                        <li>Prefer entry in 'Overnight (20:00 - 04:00 ET)' and exit in Pre-Market (04:00 - 09:30 ET) or Midday-Afternoon (10:30 - 15:00 ET)</li>
+                        <li>Alternatively, enter and exit within 'Pre-Market (04:00 - 09:30 ET)'</li>
+                        <li>If held >9 hours, consider exiting or reducing exposure</li>
+                        <li>Avoid holding beyond 17.31 hours</li>
+                    </ul>
+                </div>
+            `;
+            
+            strategySection.style.display = 'block';
+            document.getElementById('session-section').style.display = 'none';
+            document.getElementById('duration-section').style.display = 'none';
+        }
+        
+        // Show strategy details based on selections
+        function showStrategyDetails(duration) {
+            const strategySection = document.getElementById('strategy-section');
+            
+            // Capitalize the day name
+            const dayName = selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1);
+            
+            // Create strategy content based on selections
+            let strategyContent = `
+                <div class="strategy-header">
+                    <h3 class="strategy-title">${tradeDirection === 'long' ? 'Long' : 'Short'} Position Strategy for ${dayName}</h3>
+                    <div class="day-tag">${sessionType}</div>
+                </div>
+                
+                <div class="performance-card">
+                    <h3><i class="fas fa-chart-line"></i> Hold Duration: ${duration}</h3>
+            `;
+            
+            if (tradeDirection === 'long') {
+                if (sessionType === 'Overnight (20:00 - 04:00 ET)') {
+                    if (duration === '0 – 10.46 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Highest win rate (79%), but losses can be larger (RRR 0.69). Tighten stop-losses</li>
+                                    <li>Be cautious of Midday-Afternoon (10:30 - 15:00 ET) exits</li>
+                                    <li>Otherwise, maintain hold if under 10.46 hours</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === '10.46 – 20.00 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate drops (64%), but RRR improves (1.20)</li>
+                                    <li>Feel secure if holding into Pre-Market (04:00 - 09:30 ET)</li>
+                                    <li>Monitor closely once entering Midday-Afternoon (10:30 - 15:00 ET). Decide to exit or hold until Last Hour (15:00 - 16:00 ET)</li>
+                                    <li>Avoid extending beyond 20 hours</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === 'more than 20.00 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate &lt;50%, profit factor &lt;1. If the loss is manageable, accept it and exit immediately</li>
+                                    <li>Otherwise, hold cautiously until Overnight (20:00 - 04:00 ET) for potential recovery, but prioritize risk reduction</li>
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } else if (sessionType === 'Pre-Market (04:00 - 09:30 ET)') {
+                    if (duration === '0 – 10.46 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Highest win rate (79%), but losses can be larger (RRR 0.69). Tighten stop-losses</li>
+                                    <li>Best to exit within the same session (Pre-Market)</li>
+                                    <li>Alternatively, risk holding longer but avoid the dangerous Midday-Afternoon (10:30 - 15:00 ET)</li>
+                                    <li>Aim for Last Hour (15:00 - 16:00 ET) if needed</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === '10.46 – 20.00 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate drops (64%), but RRR improves (1.20)</li>
+                                    <li>If holding into Midday-Afternoon (10:30 - 15:00 ET), tighten take-profit and stop-loss—this is a high-risk period</li>
+                                    <li>Decide to secure profits or hold until Last Hour (15:00 - 16:00 ET)</li>
+                                    <li>Avoid extending beyond 20 hours</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === 'more than 20.00 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate &lt;50%, profit factor &lt;1. If the loss is manageable, accept it and exit immediately</li>
+                                    <li>Otherwise, hold cautiously until Pre-Market (04:00 - 09:30 ET) for potential recovery, but prioritize risk reduction</li>
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } else {
+                    // Other sessions
+                    strategyContent += `
+                        <div class="strategy-notes">
+                            <p><i class="fas fa-info-circle"></i> Insufficient entry session data</p>
+                            <ul>
+                    `;
+                    
+                    if (duration === '0 – 10.46 hrs') {
+                        strategyContent += `
+                            <li>Tighten stop-losses (high win rate but potential large losses)</li>
+                            <li>Alternatively, risk holding longer but avoid the dangerous Midday-Afternoon (10:30 - 15:00 ET)</li>
+                            <li>Prefer exits in: Overnight (20:00 - 04:00 ET), Pre-Market (04:00 - 09:30 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                        `;
+                    } else if (duration === '10.46 – 20.00 hrs') {
+                        strategyContent += `
+                            <li>Prefer exits in: Overnight (20:00 - 04:00 ET), Pre-Market (04:00 - 09:30 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                            <li>Avoid extending beyond 20 hours</li>
+                        `;
+                    } else if (duration === 'more than 20.00 hrs') {
+                        strategyContent += `
+                            <li>If the loss is manageable, accept it and exit immediately</li>
+                            <li>For better chances, wait for exits in: Overnight (20:00 - 04:00 ET), Pre-Market (04:00 - 09:30 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                        `;
+                    }
+                    
+                    strategyContent += `</ul></div>`;
+                }
+            } else { // Short position
+                if (sessionType === 'Overnight (20:00 - 04:00 ET)') {
+                    if (duration === '0 – 7.91 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Excellent performance (win rate 92%, RRR 1.98). Prefer exit in Pre-Market (04:00 - 09:30 ET)</li>
+                                    <li>If approaching 7.91 hours, monitor closely</li>
+                                    <li>Midday-Afternoon (10:30 - 15:00 ET) or Last Hour (15:00 - 16:00 ET) are solid exits</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === '7.91 – 17.31 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Strong performance (win rate 85%, RRR 4.20). Prefer exit in Pre-Market (04:00 - 09:30 ET)</li>
+                                    <li>If approaching 17.31 hours, monitor closely and exit promptly</li>
+                                    <li>Midday-Afternoon (10:30 - 15:00 ET) or Last Hour (15:00 - 16:00 ET) are solid exits</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === 'more than 17.31 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate drops (56%), profit factor &lt;1</li>
+                                    <li>Tighten stop-losses aggressively or exit immediately to cut losses</li>
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } else if (sessionType === 'Pre-Market (04:00 - 09:30 ET)') {
+                    if (duration === '0 – 7.91 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Excellent performance. Prefer exit within the same session (Pre-Market)</li>
+                                    <li>Otherwise, target Midday-Afternoon (10:30 - 15:00 ET) or Last Hour (15:00 - 16:00 ET)</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === '7.91 – 17.31 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Excellent performance. Prefer exit within the same session (Pre-Market)</li>
+                                    <li>If extending, monitor closely near 17.31 hours and exit promptly</li>
+                                    <li>Midday-Afternoon (10:30 - 15:00 ET) or Last Hour (15:00 - 16:00 ET) are solid exits</li>
+                                    <li>If willing to hold longer, aim for the next Pre-Market</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else if (duration === 'more than 17.31 hrs') {
+                        strategyContent += `
+                            <div class="strategy-notes">
+                                <ul>
+                                    <li>Win rate drops (56%), profit factor &lt;1</li>
+                                    <li>Tighten stop-losses aggressively or exit immediately</li>
+                                    <li>If willing to hold, target the next Pre-Market for potential recovery</li>
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } else {
+                    // Other sessions
+                    strategyContent += `
+                        <div class="strategy-notes">
+                            <p><i class="fas fa-info-circle"></i> Insufficient entry session data</p>
+                            <ul>
+                    `;
+                    
+                    if (duration === '0 – 7.91 hrs') {
+                        strategyContent += `
+                            <li>Strong overall. Prefer exits in: Pre-Market (04:00 - 09:30 ET), Midday-Afternoon (10:30 - 15:00 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                        `;
+                    } else if (duration === '7.91 – 17.31 hrs') {
+                        strategyContent += `
+                            <li>Strong overall. Monitor closely near 17.31 hours and exit promptly</li>
+                            <li>Prefer exits in: Pre-Market (04:00 - 09:30 ET), Midday-Afternoon (10:30 - 15:00 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                        `;
+                    } else if (duration === 'more than 17.31 hrs') {
+                        strategyContent += `
+                            <li>Tighten stop-losses aggressively or exit immediately</li>
+                            <li>If willing to hold, target: Pre-Market (04:00 - 09:30 ET), Midday-Afternoon (10:30 - 15:00 ET), or Last Hour (15:00 - 16:00 ET)</li>
+                        `;
+                    }
+                    
+                    strategyContent += `</ul></div>`;
+                }
+            }
+            
+            strategyContent += `</div>`; // Close performance-card
+            
+            strategySection.innerHTML = strategyContent;
+            strategySection.style.display = 'block';
+        }
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGlobalGuidance();
+        });
+    </script>
+</body>
+</html>
